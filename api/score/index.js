@@ -25,7 +25,7 @@ export async function POST(request) {
   // }
 
   if (!data.id || !data.name || !data.score) {
-    return (ctx.body = {
+    return Response.json({
       code: 400,
       msg: "invalid data",
     });

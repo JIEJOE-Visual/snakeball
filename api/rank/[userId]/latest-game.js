@@ -1,15 +1,15 @@
 import redis from "../../_redis";
 
-export async function GET(request, { params }) {
-  console.log("🚀 ~ file: latest-game.js:4 ~ params:", params)
-  const userId = params.userId;
+export async function GET(request) {
+  console.log("🚀 ~ file: latest-game.js:4 ~ params:", request, request.query);
+  const { userId } = request.query;
   const userGamesKey = `user:${userId}:games`;
 
   // 获取最新的比赛ID（列表中的第一个元素）
   const latestGameId = await redis.lindex(userGamesKey, 0);
 
   if (!latestGameId) {
-    return (ctx.body = {
+    return Response.json({
       code: 404,
       msg: "no games found",
     });
