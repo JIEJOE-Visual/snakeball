@@ -5,8 +5,6 @@ export async function GET(request) {
   const params = new URLSearchParams(url.search);
   const userId = params.get("userId");
 
-  console.log("🚀 ~ file: latest-game.js:4 ~ params:", request, userId);
-
   const userGamesKey = `user:${userId}:games`;
 
   // 获取最新的比赛ID（列表中的第一个元素）

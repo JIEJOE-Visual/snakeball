@@ -1,8 +1,10 @@
 import forge from "node-forge";
 import redis from "../_redis";
+import { getEnv } from '@vercel/functions';
 
 export async function POST(request) {
   // 解密数据
+  console.log("🚀 ~ file: index.js:8 ~ getEnv():", getEnv())
   const private_key = forge.pki.privateKeyFromPem(process.env.RSA_PRIVATE_KEY);
   const encrypted_data = request.body.encrypted_data;
   const decrypted_data = private_key.decrypt(
