@@ -1,7 +1,26 @@
 {
-    "version": 2,
-    "buildCommand": "pnpm run build && pnpm run payload migrate",
-    "installCommand": "pnpm install",
-    "framework": "nextjs"
-  }
+  "version": 2,
+  "buildCommand": "pnpm run build",
+  "installCommand": "pnpm install",
+  "builds": [
+    {
+      "src": "backend/main.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "dist/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "backend/main.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "dist/$1"
+    }
+  ]
+}
   
