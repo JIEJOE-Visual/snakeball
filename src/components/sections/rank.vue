@@ -229,12 +229,10 @@ const rank = {
 
             player.rank = response.data.rank;
                 // 如果玩家在15名内：则默认选中玩家所对应的小球，优先显示玩家信息
-                console.log("🚀 ~ file: rank.vue:233 ~ player.rank:", player.rank)
                 if (player.rank <= 15) {
                     this.current_index.value = player.rank - 1;
                 } else {
                     // 如果玩家在15名外：则让最后一个小球显示玩家的对应信息
-                    console.log("🚀 ~ file: rank.vue:238 ~ players_data.value.length - 1:", players_data.value.length - 1)
                     players_data.value[players_data.value.length - 1] = {
                         name: player.name,
                         rank: player.rank,
