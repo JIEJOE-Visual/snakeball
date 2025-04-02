@@ -1,0 +1,7 @@
+{
+    "version": 2,
+    "buildCommand": "pnpm run build && pnpm run payload migrate",
+    "installCommand": "pnpm install",
+    "framework": "nextjs"
+  }
+  

@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 import { Howl } from "howler";
+const { getFnID } = require('@/utils/index');
+
 export const global = defineStore('global', {
     state: () => ({
         // 是否为safari浏览器
@@ -108,7 +110,9 @@ export const global = defineStore('global', {
     actions: {
         // 初始化玩家信息
         init_player_data(name) {
-            this.player.id = Date.now() + Math.random().toString(36).substring(2, 10);
+            // 使用浏览器指纹作为玩家ID，这样玩家使用相同的设备时，ID也会相同
+            this.player.id = getFnID();
+            // this.player.id = Date.now() + Math.random().toString(36).substring(2, 10);
             this.player.name = name;
             this.player.if_active = false;
         },

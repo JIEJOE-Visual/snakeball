@@ -1,5 +1,5 @@
 <template>
-    <svg id="stage" class="_fullscreen" />
+    <svg id="stage" class="_fullscreen" ></svg>
     <Resettip ref="resettip" />
     <Readytips ref="readytips" />
     <Summary ref="summary" />
@@ -927,7 +927,7 @@ const game_controler = {
     // 游戏结束
     over(if_win) {
         this.if_gaming = false;
-        // this.post(); //提交玩家数据
+        this.post(); //提交玩家数据
         this.clean(); //清扫游戏舞台
         // 停止游戏音乐、并播放大厅音乐
         audio_controller.gameing.stop();
@@ -972,20 +972,21 @@ const game_controler = {
             score: player.score,
         };
         // RAS加密
-        const public_key = forge.pki.publicKeyFromPem(`-----BEGIN PUBLIC KEY-----
-xxxxxxx
------END PUBLIC KEY-----`);
+        const public_key = forge.pki.publicKeyFromPem(process.env.VUE_APP_RSA_PUBLIC_KEY);
         // 生成加密数据
         const encrypted_data = public_key.encrypt(JSON.stringify(data), "RSA-OAEP", {
             md: forge.md.sha256.create(),
         });
         // 将加密数据转换为Base64
         const encrypted_base64 = forge.util.encode64(encrypted_data);
-        // 发送数据
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", "https://put_your_server.com/api", true);
-        xhr.setRequestHeader("Content-type", "application/json");
-        xhr.send(JSON.stringify({ encrypted_data: encrypted_base64 }));
+        // 发送数据，改为fetch
+        fetch(`${process.env.VUE_APP_API_URL}/score`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ encrypted_data: encrypted_base64 }),
+        })
     },
 };
 // 储存全局功能函数
