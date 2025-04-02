@@ -2,7 +2,7 @@
   "version": 2,
   "buildCommand": "pnpm run build",
   "installCommand": "pnpm install",
-  "framework": "vuejs",
+  "framework": "vue",
   "builds": [
     {
       "src": "backend/main.js",
