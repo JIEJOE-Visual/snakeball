@@ -2,6 +2,7 @@
   "version": 2,
   "buildCommand": "pnpm run build",
   "installCommand": "pnpm install",
+  "framework": "nextjs",
   "builds": [
     {
       "src": "backend/main.js",
