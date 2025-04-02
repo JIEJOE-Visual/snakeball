@@ -27,8 +27,8 @@
             :key="index"
             :class="{'rank_playerball_selected':index==rank.current_index.value+1}"
             :style="{'--r': (15 - 1-index) * 0.8 / 20+1}"
-            @click=" rank.current_index.value = index-1"
-        >
+            @click="players_data[index-1] && (rank.current_index.value = index-1);"
+        >   
             <p class="rank_playerball_rank _font_5">{{players_data[index-1]?(players_data[index-1].rank > 99?'99+':players_data[index-1].rank):'?'}}</p>
             <p class="rank_playerball_name _font_1">{{players_data[index-1]?players_data[index-1].name:'loading'}}</p>
         </div>
@@ -210,8 +210,9 @@ const rank = {
         // 更新默认显示的玩家index，默认选中第一名
         this.current_index.value = 0;
         (async () => {
-            const response = await fetch("https://put_your_server.com/api");
-            players_data.value = await response.json();
+            const response = await (await fetch(`${process.env.VUE_APP_API_URL}/rank`)).json();
+            players_data.value = response.data;
+            
             // 为所有玩家添加排名参数
             players_data.value.forEach((data, index) => {
                 data.rank = index + 1;
@@ -222,13 +223,11 @@ const rank = {
     },
     // 获取玩家分数对应的排名
     get_rank() {
-        let request = new XMLHttpRequest();
-        request.open("POST", "https://put_your_server.com/api", true);
-        request.setRequestHeader("Content-type", "application/json");
-        request.send(JSON.stringify({ score: player.score }));
-        request.onreadystatechange = () => {
-            if (request.status == 200 && request.readyState == 4) {
-                player.rank = JSON.parse(request.responseText).rank;
+        // 也改为 fetch，因为你上面用的就是 fetch，这里用 xhr 没理由啊
+        (async () => {
+            const response = await (await fetch(`${process.env.VUE_APP_API_URL}/rank/${player.id}/latest-game`)).json();
+
+            player.rank = response.data.rank;
                 // 如果玩家在15名内：则默认选中玩家所对应的小球，优先显示玩家信息
                 if (player.rank <= 15) {
                     this.current_index.value = player.rank - 1;
@@ -244,8 +243,7 @@ const rank = {
                     // 同上，优先显示玩家信息
                     this.current_index.value = players_data.value.length - 1;
                 }
-            }
-        };
+        })();
     },
 };
 // 储存全局功能函数
