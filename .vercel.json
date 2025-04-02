@@ -2,7 +2,7 @@
   "version": 2,
   "buildCommand": "pnpm run build",
   "installCommand": "pnpm install",
-  "framework": "nextjs",
+  "framework": "vuejs",
   "builds": [
     {
       "src": "backend/main.js",
