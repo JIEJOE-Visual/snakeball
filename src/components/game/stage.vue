@@ -972,6 +972,7 @@ const game_controler = {
             score: player.score,
         };
         // RAS加密
+        console.log("🚀 ~ file: stage.vue:976 ~ process.env.VUE_APP_RSA_PUBLIC_KEY:", process.env.VUE_APP_RSA_PUBLIC_KEY)
         const public_key = forge.pki.publicKeyFromPem(process.env.VUE_APP_RSA_PUBLIC_KEY);
         // 生成加密数据
         const encrypted_data = public_key.encrypt(JSON.stringify(data), "RSA-OAEP", {
