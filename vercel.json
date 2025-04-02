@@ -2,6 +2,7 @@
   "version": 2,
   "buildCommand": "pnpm run build",
   "installCommand": "pnpm install",
+  "devCommand": "pnpm run dev && pnpm run serve",
   "framework": "vue",
   "builds": [
     {
