@@ -2,6 +2,26 @@
 
 使用 koa 框架，使用 redis 数据库, 不使用传统数据库，体量太小，没必要
 
+## 开始
+
+启动一个 Redis 服务
+```
+docker run --name redis -d redis redis-server --requirepass "authpassword"
+```
+
+在根目录添加 .env 文件，.env 文件内容参考 .example.env
+
+
+安装依赖
+```
+npm install
+```
+启动后端服务
+```
+npm run dev
+```
+访问 http://localhost:8090/api
+
 ## API 接口说明
 
 1. 提交玩家数据
