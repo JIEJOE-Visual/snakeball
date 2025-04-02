@@ -17,7 +17,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "dist/index.html"
     },
     {
       "src": "/api/(.*)",
