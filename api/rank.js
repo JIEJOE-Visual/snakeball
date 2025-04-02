@@ -1,7 +1,7 @@
-import redis from './_redis'
+import redis from "./_redis";
 
 export async function GET(request) {
-      // 获取排行榜数据，使用 ZRANGE 获取成员和分数
+  // 获取排行榜数据，使用 ZRANGE 获取成员和分数
   const rank = await redis.zrange("ranking_list", 0, 14, "REV");
 
   // 处理数据
