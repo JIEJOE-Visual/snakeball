@@ -1,4 +1,4 @@
-import redis from "./_redis";
+import redis from "../../_redis";
 
 export async function GET(request, { params }) {
   console.log("🚀 ~ file: latest-game.js:4 ~ params:", params)
